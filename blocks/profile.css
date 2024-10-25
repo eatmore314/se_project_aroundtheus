@@ -15,16 +15,17 @@
 }
 
 .profile__edit-button {
-  background: transparent url(/images/Edit\ Button.png) center no-repeat;
+  background: transparent url(/images/editButton.svg) center no-repeat;
   width: 24px;
   height: 24px;
   grid-area: button;
   border: 1px solid #ffffff;
   margin-right: 15px;
+  cursor: pointer;
 }
 
 .profile__edit-button:hover {
-  background-image: url(/images/EditButtonHover.png);
+  opacity: 60%;
 }
 
 .profile__add-button {
@@ -35,10 +36,11 @@
   left: 930px;
   margin-left: auto;
   border: 2px solid white;
+  cursor: pointer;
 }
 
 .profile__add-button:hover {
-  background-image: url("/images/Add\ ButtonHover.png");
+  opacity: 0.6;
 }
 .profile__title {
   font-weight: 500;
@@ -67,7 +69,6 @@
 .profile__image {
   height: 120px;
   width: 120px;
-  top: 159px;
   margin-right: 24px;
 }
 
