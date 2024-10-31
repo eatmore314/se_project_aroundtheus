@@ -15,7 +15,7 @@
 }
 
 .profile__edit-button {
-  background: transparent url(/images/editButton.svg) center no-repeat;
+  background: transparent url(../images/editButton.svg) center no-repeat;
   width: 24px;
   height: 24px;
   grid-area: button;
@@ -93,8 +93,6 @@
   .profile__description {
     text-align: center;
     margin-bottom: 36px;
-    font-family: "Inter", Arial, sans-serif;
-    font-weight: 500;
     font-size: 14px;
     line-height: 16.94px;
   }

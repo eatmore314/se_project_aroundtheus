@@ -1,5 +1,10 @@
 # Project 3: Around The U.S.
+# Project Name: se_project_aroundtheus
+# Project Description: This project is a landing page with the main section consisting of a grid that contains 6 cards. Above the grid is a profile image along with a Title and such to go with it. Lastly At the top of the page is the Logo  which displays the text "Around The U.S"
 
+# Improvents: In the future, i'd like to add features such as Javascript and/or react to this project to help with the functionally and load times.
+
+# Current Technologies: Currently im using Html and css within this project.
 ### Overview  
 
 * Intro  
