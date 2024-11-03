@@ -14,7 +14,7 @@
   .header {
     padding: 0;
     margin-top: 28px;
-    height: 56px;
+    min-height: 56px;
   }
   .header__image {
     padding-left: 27px;
