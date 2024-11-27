@@ -26,3 +26,10 @@ const initialCards = [
   },
 ];
 console.log(initialCards);
+
+const editModalButton = document.querySelector("")
+
+
+function openModal(modal) {
+  modal.
+}
