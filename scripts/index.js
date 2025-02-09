@@ -37,6 +37,10 @@ let modalInputDescription = document.getElementById("modal__input_description");
 let saveButton = document.querySelector(".modal__button");
 let profileTitle = document.querySelector(".profile__title");
 let profileDescription = document.querySelector(".profile__description");
+/* template variables */
+let cardTemplate = document.querySelector("#card-template").content.firstElementChild;
+let cardListEl = document.querySelector(".cards__list");
+
 
 editButton.addEventListener("click", ()=> {
    
@@ -44,7 +48,7 @@ editButton.addEventListener("click", ()=> {
 })
 
 closeButton.addEventListener("click", ()=> {
-  modal.classList.add("modal__close");
+  modal.classList.remove("modal_opened");
 })
 
 saveButton.addEventListener("click", (e)=>{
@@ -60,3 +64,24 @@ saveButton.addEventListener("click", (e)=>{
   }
 
 )
+
+function getCardElement(cardData) {
+  const cardElement = cardTemplate.cloneNode(true);
+  console.log(cardElement);
+ const cardImageEl = cardElement.querySelector(".card__image");
+ const cardTitleEl = cardElement.querySelector(".card__title");
+
+cardImageEl.src = cardData.link;
+
+cardImageEl.alt = cardData.name;
+
+cardTitleEl.textContent = cardData.name;
+
+return cardElement;
+
+}
+
+initialCards.forEach((cardData)=>{
+  const cardElement = getCardElement(cardData);
+  cardListEl.append(cardElement);
+})
