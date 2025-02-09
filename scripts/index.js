@@ -42,14 +42,17 @@ let cardTemplate = document.querySelector("#card-template").content.firstElement
 let cardListEl = document.querySelector(".cards__list");
 
 
-editButton.addEventListener("click", ()=> {
-   
+function openModal() {
   modal.classList.add("modal_opened");
-})
+}
 
-closeButton.addEventListener("click", ()=> {
+function closeModal() {
   modal.classList.remove("modal_opened");
-})
+}
+
+editButton.addEventListener("click", openModal);
+
+closeButton.addEventListener("click", closeModal);
 
 saveButton.addEventListener("click", (e)=>{
   e.preventDefault();
@@ -58,7 +61,7 @@ saveButton.addEventListener("click", (e)=>{
   if(userTitle.trim() && userDescription.trim()!== ""){
     profileTitle.textContent = userTitle;
     profileDescription.textContent = userDescription;
-    modal.classList.add("modal__close");
+    closeModal();
   }
 
   }
