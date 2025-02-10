@@ -45,6 +45,9 @@ const cardListEl = document.querySelector(".cards__list");
 const form = document.querySelector(".modal__form");
 
 function openModal() {
+  // set input values to text content
+  modalInputTitle.value = profileTitle.textContent;
+  modalInputDescription.value = profileDescription.textContent;
   modal.classList.add("modal_opened");
 }
 
