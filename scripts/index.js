@@ -27,20 +27,22 @@ const initialCards = [
 ];
 console.log(initialCards);
 
-
-let modal = document.querySelector(".modal");
-let editButton = document.querySelector(".profile__edit-button");
-let closeButton = document.querySelector(".modal__close");
+const modal = document.querySelector(".modal");
+const editButton = document.querySelector(".profile__edit-button");
+const closeButton = document.querySelector(".modal__close");
 /* form javascript variables */
-let modalInputTitle = document.getElementById("modal__input_title");
-let modalInputDescription = document.getElementById("modal__input_description");
-let saveButton = document.querySelector(".modal__button");
-let profileTitle = document.querySelector(".profile__title");
-let profileDescription = document.querySelector(".profile__description");
+const modalInputTitle = document.getElementById("modal__input_title");
+const modalInputDescription = document.getElementById(
+  "modal__input_description"
+);
+const saveButton = document.querySelector(".modal__button");
+const profileTitle = document.querySelector(".profile__title");
+const profileDescription = document.querySelector(".profile__description");
 /* template variables */
-let cardTemplate = document.querySelector("#card-template").content.firstElementChild;
-let cardListEl = document.querySelector(".cards__list");
-
+const cardTemplate =
+  document.querySelector("#card-template").content.firstElementChild;
+const cardListEl = document.querySelector(".cards__list");
+const form = document.querySelector(".modal__form");
 
 function openModal() {
   modal.classList.add("modal_opened");
@@ -54,37 +56,33 @@ editButton.addEventListener("click", openModal);
 
 closeButton.addEventListener("click", closeModal);
 
-saveButton.addEventListener("click", (e)=>{
+form.addEventListener("submit", (e) => {
   e.preventDefault();
   const userTitle = modalInputTitle.value;
   const userDescription = modalInputDescription.value;
-  if(userTitle.trim() && userDescription.trim()!== ""){
+  if (userTitle.trim() && userDescription.trim() !== "") {
     profileTitle.textContent = userTitle;
     profileDescription.textContent = userDescription;
     closeModal();
   }
-
-  }
-
-)
+});
 
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   console.log(cardElement);
- const cardImageEl = cardElement.querySelector(".card__image");
- const cardTitleEl = cardElement.querySelector(".card__title");
+  const cardImageEl = cardElement.querySelector(".card__image");
+  const cardTitleEl = cardElement.querySelector(".card__title");
 
-cardImageEl.src = cardData.link;
+  cardImageEl.src = cardData.link;
 
-cardImageEl.alt = cardData.name;
+  cardImageEl.alt = cardData.name;
 
-cardTitleEl.textContent = cardData.name;
+  cardTitleEl.textContent = cardData.name;
 
-return cardElement;
-
+  return cardElement;
 }
 
-initialCards.forEach((cardData)=>{
+initialCards.forEach((cardData) => {
   const cardElement = getCardElement(cardData);
   cardListEl.append(cardElement);
-})
+});
