@@ -13,9 +13,25 @@
 
 }
 
+.modal_add {
+    position: fixed;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+   /* display: flex; */
+   display: none;
+    color: black;
+    z-index: 999;
+    padding: 19px;
+
+}
+
 .modal_opened {
     display: flex;
 }
+
 
 .modal__container {
     background-color: white;
@@ -26,6 +42,20 @@
 }
 
 .modal__close {
+    width: 40px;
+    height: 40px;
+    background-image: url(../images/Close\ Icon.svg);
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    bottom: calc(100% + 5px);
+    left: calc(100% + 5px);
+    cursor: pointer;
+}
+
+.modal__add_close {
     width: 40px;
     height: 40px;
     background-image: url(../images/Close\ Icon.svg);
