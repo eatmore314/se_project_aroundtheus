@@ -88,8 +88,21 @@
     </div>
    </div>
    <!--Add Modal-->
+
+    <!--Image Modal-->
+   <div class="modal" id="image-modal">
+    <div class="modal__container modal__content_content_image">
+      <button class="modal__close"></button>
+      <img class="popup__image" src="#" alt=""/>
+      <p class="card__image_description"></p>
+    </div>
+   </div>
+    <!--Image Modal-->
+
+
     <template id="card-template">
       <li class="card">
+        <button type="button" class="card__trash-button"></button>
         <img src="" alt="" class="card__image" />
         <div class="card__description">
           <h2 class="card__title"></h2>
@@ -97,7 +110,7 @@
         </div>
       </li>
     </template>
-
+    
     <script src="./scripts/index.js"></script>
   </body>
 </html>

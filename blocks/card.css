@@ -6,6 +6,7 @@
   border-radius: 10px;
   list-style: none;
   overflow: hidden;
+  position:relative;
 }
 
 .card__title {
@@ -54,5 +55,26 @@
 
 .card__like-button:hover {
   opacity: 0.5;
+}
+
+.card__like-button-black {
+  background: url(../images/likeButtonActive.png);
+}
+
+.card__trash-button {
+  background: transparent url(../images/Trash.png);
+    position: absolute;
+    background-repeat: no-repeat;
+    top: 10px;
+    right: 10px;
+    height: 20px;
+    width: 19px;
+    border: none;
+    cursor: pointer;
+}
+
+.card__image_description {
+  position: absolute;
+  color: white;
 }
 
