@@ -49,7 +49,7 @@ const cardListEl = document.querySelector(".cards__list");
 /*Image Modal */
 const modalImage = document.getElementById("image-modal");
 const modalImagePopup = modalImage.querySelector(".modal__image");
-const modalImageDescription = document.querySelector(".modal__image_description");
+const modalImageDescription = document.querySelector(".modal__image-description");
 const modalImageCloseButton = modalImage.querySelector('.modal__close');
 
 function openModal(modal) {
@@ -131,6 +131,7 @@ function openPictureModal(cardData) {
   modalImagePopup.src = cardData.link;
   modalImagePopup.alt = cardData.name;
   modalImageDescription.textContent = cardData.name;
+  
 
   openModal(modalImage)
 }
