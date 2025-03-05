@@ -31,29 +31,41 @@
       <p class="footer__copyright">© 2024 Around The U.S.</p>
     </footer>
   </div>
-
+  <!--Profile Modal-->
   <div class="modal" id="profile-edit-modal">
     <div class="modal__container">
       <button class="modal__close"></button>
       <p class="modal__heading">Edit profile</p>
-      <form class="modal__form">
+      <form class="modal__form" novalidate>
         <div class="modal__input-container">
-          <input type="text" name="title" class="modal__input" id="modal__input_title" placeholder="Jacques Cousteau" />
-          <input type="text" name="description" class="modal__input" id="modal__input_description"
-            placeholder="Explorer" /></div>
+          <input type="text" name="title" class="modal__input" id="modal__input_edit_title"
+            placeholder="Jacques Cousteau" minlength="2" maxlength="40" required />
+          <label class="modal__label"> <span class="modal__error" id="modal__input_edit_title-error"></span></label>
+          <input type="text" name="description" class="modal__input" id="modal__input_edit_description"
+            placeholder="Explorer" minlength="2" maxlength="200" required />
+          <label class="modal__label">
+            <span class="modal__error" id="modal__input_edit_description-error"></span></label>
+        </div>
         <button type="submit" class="modal__button">Save</button>
       </form>
     </div>
   </div>
+  <!--Profile Modal-->
+
   <!--Add Modal-->
   <div class="modal" id="modal__add">
     <div class="modal__container">
       <button class="modal__close"></button>
       <p class="modal__heading">New place</p>
-      <form class="modal__form" id="modal__form_add">
+      <form class="modal__form" id="modal__form_add" novalidate>
         <div class="modal__input-container">
-          <input type="text" name="title" class="modal__input" id="modal__form_input_add_title" placeholder="Title" />
-          <input type="text" name="url" class="modal__input" id="modal__form_input_url" placeholder="Image link" />
+          <input type="text" name="title" class="modal__input" id="modal__input_add_title" placeholder="Title"
+            minlength="2" maxlength="40" required />
+          <label class="modal__label"> <span class="modal__error modal__error_visible"
+              id="modal__input_add_title-error"></span></label>
+          <input type="url" name="url" class="modal__input" id="modal__input_add_url" placeholder="Image link"
+            minlength="2" maxlength="200" required />
+          <label class="modal__label"><span class="modal__error" id="modal__input_add_url-error"></span></label>
         </div>
         <button type="submit" class="modal__button">Create</button>
       </form>
@@ -84,6 +96,7 @@
   </template>
 
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validation.js"></script>
 </body>
 
 </html>

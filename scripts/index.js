@@ -30,8 +30,8 @@ console.log(initialCards);
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditCloseButton = document.querySelector(".modal__close");
-const profileEditInputTitle = document.getElementById("modal__input_title");
-const profileEditInputDescription = document.getElementById("modal__input_description");
+const profileEditInputTitle = document.getElementById("modal__input_edit_title");
+const profileEditInputDescription = document.getElementById("modal__input_edit_description");
 const profileAddButton = document.querySelector(".profile__add-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
@@ -40,8 +40,8 @@ const profileEditForm = profileEditModal.querySelector(".modal__form");
 const modalAdd = document.querySelector("#modal__add");
 const modalAddForm = document.getElementById("modal__form_add");
 const modalAddCloseButton = modalAdd.querySelector(".modal__close");
-const modalAddTitleInput = document.getElementById("modal__form_input_add_title");
-const modalAddUrlInput = document.getElementById("modal__form_input_url");
+const modalAddTitleInput = document.getElementById("modal__input_add_title");
+const modalAddUrlInput = document.getElementById("modal__input_add_url");
 /* template variables */
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -51,20 +51,25 @@ const modalImage = document.getElementById("image-modal");
 const modalImagePopup = modalImage.querySelector(".modal__image");
 const modalImageDescription = document.querySelector(".modal__image-description");
 const modalImageCloseButton = modalImage.querySelector('.modal__close');
+const modals = document.querySelectorAll(".modal");
+
+
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keyup", handleEsc)
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keyup", handleEsc)
 }
 
 
 
 
 profileAddButton.addEventListener("click", () => {
- openModal(modalAdd)
+  openModal(modalAdd)
 });
 
 profileEditButton.addEventListener("click", () => {
@@ -73,19 +78,6 @@ profileEditButton.addEventListener("click", () => {
   profileEditInputDescription.value = profileDescription.textContent;
   openModal(profileEditModal)
 });
-
-profileEditCloseButton.addEventListener("click", () => {
-  closeModal(profileEditModal)
-});
-
-modalAddCloseButton.addEventListener("click", () => {
-  closeModal(modalAdd);
-});
-
-
-modalImageCloseButton.addEventListener("click", () => {
-  closeModal(modalImage);
-})
 
 
 profileEditForm.addEventListener("submit", (e) => {
@@ -108,7 +100,7 @@ function getCardElement(cardData) {
   const cardTitleEl = cardElement.querySelector(".card__title");
   const likeButton = cardElement.querySelector(".card__like-button");
   const trashButton = cardElement.querySelector(".card__trash-button");
-  cardImageEl.addEventListener("click", ()=>openPictureModal(cardData));
+  cardImageEl.addEventListener("click", () => openPictureModal(cardData));
 
   trashButton.addEventListener("click", () => {
     cardElement.remove();
@@ -126,16 +118,27 @@ function getCardElement(cardData) {
   return cardElement;
 }
 
+function isEscEvent(evt) {
+  if (evt.key === "Escape") {
+    const activeModal = document.querySelector(".modal_opened")
+    closeModal(activeModal)
+  }
+}
+
+function handleEsc(e) {
+  e.preventDefault()
+  isEscEvent(e)
+}
+
 
 function openPictureModal(cardData) {
   modalImagePopup.src = cardData.link;
   modalImagePopup.alt = cardData.name;
   modalImageDescription.textContent = cardData.name;
-  
+
 
   openModal(modalImage)
 }
-
 
 
 
@@ -164,3 +167,11 @@ initialCards.forEach((cardData) => {
   renderCard(cardData);
 });
 
+modals.forEach((modal) => {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal || e.target.classList.contains("modal__close")) {
+      closeModal(modal)
+    }
+  })
+
+})
