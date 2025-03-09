@@ -36,7 +36,7 @@
     <div class="modal__container">
       <button class="modal__close"></button>
       <p class="modal__heading">Edit profile</p>
-      <form class="modal__form" novalidate>
+      <form class="modal__form" name="edit-form" novalidate>
         <div class="modal__input-container">
           <input type="text" name="title" class="modal__input" id="modal__input_edit_title"
             placeholder="Jacques Cousteau" minlength="2" maxlength="40" required />
@@ -57,7 +57,7 @@
     <div class="modal__container">
       <button class="modal__close"></button>
       <p class="modal__heading">New place</p>
-      <form class="modal__form" id="modal__form_add" novalidate>
+      <form class="modal__form" id="modal__form_add" name="add-form"novalidate>
         <div class="modal__input-container">
           <input type="text" name="title" class="modal__input" id="modal__input_add_title" placeholder="Title"
             minlength="2" maxlength="40" required />
@@ -95,8 +95,7 @@
     </li>
   </template>
 
-  <script src="./scripts/index.js"></script>
-  <script src="./scripts/validation.js"></script>
+  <script type="module" src="./pages/index.js" defer ></script>
 </body>
 
 </html>

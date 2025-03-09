@@ -1,3 +1,7 @@
+import FormValidation from "../components/FormValidator.js";
+import { config } from "../components/Constance.js";
+import Card from "../components/Card.js"
+
 const initialCards = [{
     name: "Yosemite Valley",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
@@ -36,7 +40,9 @@ const profileAddButton = document.querySelector(".profile__add-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+const profileForm = document.forms["edit-form"];
 /* Add Modal */
+const addForm = document.forms["add-form"];
 const modalAdd = document.querySelector("#modal__add");
 const modalAddForm = document.getElementById("modal__form_add");
 const modalAddCloseButton = modalAdd.querySelector(".modal__close");
@@ -52,6 +58,8 @@ const modalImagePopup = modalImage.querySelector(".modal__image");
 const modalImageDescription = document.querySelector(".modal__image-description");
 const modalImageCloseButton = modalImage.querySelector('.modal__close');
 const modals = document.querySelectorAll(".modal");
+//Card Selector
+const cardSelector = '#card-template';
 
 
 
@@ -142,8 +150,9 @@ function openPictureModal(cardData) {
 
 
 
-function renderCard(cardData) {
-  const cardElement = getCardElement(cardData);
+function renderCard(data) {
+  const newCard = new Card(data,cardSelector)
+  const cardElement = getCardElement(data);
   cardListEl.prepend(cardElement);
 }
 
@@ -175,3 +184,9 @@ modals.forEach((modal) => {
   })
 
 })
+
+const profileFormValidator = new FormValidation (config,profileForm);
+const addFormValidator = new FormValidation (config,addForm);
+profileFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
