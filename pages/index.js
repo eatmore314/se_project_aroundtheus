@@ -1,5 +1,7 @@
 import FormValidation from "../components/FormValidator.js";
-import { config } from "../components/Constance.js";
+import {
+  config
+} from "../components/Constance.js";
 import Card from "../components/Card.js"
 
 const initialCards = [{
@@ -151,7 +153,7 @@ function openPictureModal(cardData) {
 
 
 function renderCard(data) {
-  const newCard = new Card(data,cardSelector)
+  const newCard = new Card(data, cardSelector)
   const cardElement = getCardElement(data);
   cardListEl.prepend(cardElement);
 }
@@ -185,8 +187,7 @@ modals.forEach((modal) => {
 
 })
 
-const profileFormValidator = new FormValidation (config,profileForm);
-const addFormValidator = new FormValidation (config,addForm);
+const profileFormValidator = new FormValidation(config, profileForm);
+const addFormValidator = new FormValidation(config, addForm);
 profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
-
