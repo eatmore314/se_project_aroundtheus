@@ -12,7 +12,7 @@ class FormValidation {
         this._inputErrorClass = config.inputErrorClass;
         this._errorClass = config.errorClass;
     }
-    _toggleBtnState() {
+    toggleBtnState() {
 
         //is this right? (this._hasInvalidInput(input))
         if (this._hasInvalidInput(this._allInputs)) {

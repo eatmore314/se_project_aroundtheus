@@ -1,7 +1,7 @@
-import FormValidation from "../components/FormValidator.js";
+import FormValidation from "../components/FormValidator.js"
 import {
   config
-} from "../components/Constance.js";
+} from "../components/Constance.js"
 import Card from "../components/Card.js"
 
 const initialCards = [{
@@ -79,7 +79,11 @@ function closeModal(modal) {
 
 
 profileAddButton.addEventListener("click", () => {
-  openModal(modalAdd)
+  openModal(modalAdd);
+  modalAddTitleInput.value = "";
+  modalAddUrlInput.value = "";
+  addFormValidator.toggleBtnState();
+
 });
 
 profileEditButton.addEventListener("click", () => {
@@ -102,30 +106,11 @@ profileEditForm.addEventListener("submit", (e) => {
 });
 
 
+function renderCard(data) {
 
-function getCardElement(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  console.log(cardElement);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const trashButton = cardElement.querySelector(".card__trash-button");
-  cardImageEl.addEventListener("click", () => openPictureModal(cardData));
-
-  trashButton.addEventListener("click", () => {
-    cardElement.remove();
-  })
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button-black");
-  })
-
-  cardImageEl.src = cardData.link;
-
-  cardImageEl.alt = cardData.name;
-
-  cardTitleEl.textContent = cardData.name;
-
-  return cardElement;
+  const newCard = new Card(data, cardSelector, openPictureModal)
+  const cardElement = newCard.getView();
+  cardListEl.prepend(cardElement);
 }
 
 function isEscEvent(evt) {
@@ -150,13 +135,6 @@ function openPictureModal(cardData) {
   openModal(modalImage)
 }
 
-
-
-function renderCard(data) {
-  const newCard = new Card(data, cardSelector)
-  const cardElement = getCardElement(data);
-  cardListEl.prepend(cardElement);
-}
 
 
 function handleModalAddSubmit(evt) {

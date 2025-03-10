@@ -73,12 +73,6 @@
     transition: opacity 0.3s;
 }
 
-.modal__error-visible {
-    /* x */
-}
-
-
-
 .modal__button_disabled {
     opacity: 20%
 }
