@@ -23,7 +23,7 @@ class Card {
     }
 
     _getTemplate() {
-        const cardTemplate = document.querySelector("#card-template").content.querySelector(".card").cloneNode(true);
+        const cardTemplate = document.querySelector(this._cardSelector).content.querySelector(".card").cloneNode(true);
         return cardTemplate;
     }
 

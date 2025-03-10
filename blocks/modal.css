@@ -71,6 +71,7 @@
     top: calc(100% + -13px);
     left: 0;
     transition: opacity 0.3s;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 .modal__button_disabled {

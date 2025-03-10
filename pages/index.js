@@ -105,7 +105,6 @@ profileEditForm.addEventListener("submit", (e) => {
   }
 });
 
-
 function renderCard(data) {
 
   const newCard = new Card(data, cardSelector, openPictureModal)
@@ -127,8 +126,8 @@ function handleEsc(e) {
 
 
 function openPictureModal(cardData) {
-  modalImagePopup.src = cardData.link;
-  modalImagePopup.alt = cardData.name;
+  modalImagePopup.src = cardData._link;
+  modalImagePopup.alt = cardData._name;
   modalImageDescription.textContent = cardData.name;
 
 
@@ -151,6 +150,7 @@ function handleModalAddSubmit(evt) {
 
 
 modalAddForm.addEventListener("submit", handleModalAddSubmit)
+
 
 initialCards.forEach((cardData) => {
   renderCard(cardData);
