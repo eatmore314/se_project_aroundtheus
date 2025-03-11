@@ -1,7 +1,7 @@
 import {
     config
-} from './Constance.js';
-class FormValidation {
+} from '../utils/constants.js';
+class FormValidator {
     constructor(config, form) {
         this._config = config;
         this._inactiveButtonClass = config.inactiveButtonClass;
@@ -64,7 +64,6 @@ class FormValidation {
         //Same as this: const inputSelector = obj.inputSelector;
         this._allInputs = [...this._form.querySelectorAll(this._inputSelector)];
         this._submitButton = this._form.querySelector(this._submitButtonSelector);
-        this._allModals = this._form.querySelectorAll(".modal");
         this._allInputs.forEach((input) => {
             input.addEventListener("input", (e) => {
                 this._checkValid(input)
@@ -84,4 +83,4 @@ class FormValidation {
 
 
 
-export default FormValidation
+export default FormValidator

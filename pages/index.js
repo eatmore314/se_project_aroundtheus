@@ -1,7 +1,7 @@
-import FormValidation from "../components/FormValidator.js"
+import FormValidator from "../components/FormValidator.js"
 import {
   config
-} from "../components/Constance.js"
+} from "../utils/constants.js"
 import Card from "../components/Card.js"
 
 const initialCards = [{
@@ -35,7 +35,6 @@ console.log(initialCards);
 /*Profile Edit Modal */
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const profileEditButton = document.querySelector(".profile__edit-button");
-const profileEditCloseButton = document.querySelector(".modal__close");
 const profileEditInputTitle = document.getElementById("modal__input_edit_title");
 const profileEditInputDescription = document.getElementById("modal__input_edit_description");
 const profileAddButton = document.querySelector(".profile__add-button");
@@ -47,18 +46,14 @@ const profileForm = document.forms["edit-form"];
 const addForm = document.forms["add-form"];
 const modalAdd = document.querySelector("#modal__add");
 const modalAddForm = document.getElementById("modal__form_add");
-const modalAddCloseButton = modalAdd.querySelector(".modal__close");
 const modalAddTitleInput = document.getElementById("modal__input_add_title");
 const modalAddUrlInput = document.getElementById("modal__input_add_url");
 /* template variables */
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
 const cardListEl = document.querySelector(".cards__list");
 /*Image Modal */
 const modalImage = document.getElementById("image-modal");
 const modalImagePopup = modalImage.querySelector(".modal__image");
 const modalImageDescription = document.querySelector(".modal__image-description");
-const modalImageCloseButton = modalImage.querySelector('.modal__close');
 const modals = document.querySelectorAll(".modal");
 //Card Selector
 const cardSelector = '#card-template';
@@ -80,8 +75,6 @@ function closeModal(modal) {
 
 profileAddButton.addEventListener("click", () => {
   openModal(modalAdd);
-  modalAddTitleInput.value = "";
-  modalAddUrlInput.value = "";
   addFormValidator.toggleBtnState();
 
 });
@@ -105,10 +98,14 @@ profileEditForm.addEventListener("submit", (e) => {
   }
 });
 
-function renderCard(data) {
-
+function createCard(data) {
   const newCard = new Card(data, cardSelector, openPictureModal)
   const cardElement = newCard.getView();
+  return cardElement;
+}
+
+function renderCard(data) {
+  const cardElement = createCard(data)
   cardListEl.prepend(cardElement);
 }
 
@@ -126,10 +123,10 @@ function handleEsc(e) {
 
 
 function openPictureModal(cardData) {
-  modalImagePopup.src = cardData._link;
-  modalImagePopup.alt = cardData._name;
+  modalImagePopup.src = cardData.link;
+  modalImagePopup.alt = cardData.name;
   modalImageDescription.textContent = cardData.name;
-
+console.log(cardData);
 
   openModal(modalImage)
 }
@@ -165,7 +162,7 @@ modals.forEach((modal) => {
 
 })
 
-const profileFormValidator = new FormValidation(config, profileForm);
-const addFormValidator = new FormValidation(config, addForm);
+const profileFormValidator = new FormValidator(config, profileForm);
+const addFormValidator = new FormValidator(config, addForm);
 profileFormValidator.enableValidation();
 addFormValidator.enableValidation();

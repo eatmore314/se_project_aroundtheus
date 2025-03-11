@@ -1,7 +1,7 @@
 class Card {
     constructor(data, cardSelector, openPictureModal) {
-        this._name = data.name;
-        this._link = data.link;
+        this.name = data.name;
+        this.link = data.link;
         this._cardSelector = cardSelector;
         this._openPictureModal = openPictureModal;
     }
@@ -30,9 +30,9 @@ class Card {
     getView() {
         this._element = this._getTemplate();
         this._setEventListener();
-        this._element.querySelector(".card__title").textContent = this._name;
-        this._element.querySelector(".card__image").src = this._link;
-        this._element.querySelector(".card__image").alt = this._name;
+        this._element.querySelector(".card__title").textContent = this.name;
+        this._element.querySelector(".card__image").src = this.link;
+        this._element.querySelector(".card__image").alt = this.name;
         return this._element;
     }
 }
