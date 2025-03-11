@@ -41,9 +41,7 @@ const profileAddButton = document.querySelector(".profile__add-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
-const profileForm = document.forms["edit-form"];
 /* Add Modal */
-const addForm = document.forms["add-form"];
 const modalAdd = document.querySelector("#modal__add");
 const modalAddForm = document.getElementById("modal__form_add");
 const modalAddTitleInput = document.getElementById("modal__input_add_title");
@@ -126,7 +124,7 @@ function openPictureModal(cardData) {
   modalImagePopup.src = cardData.link;
   modalImagePopup.alt = cardData.name;
   modalImageDescription.textContent = cardData.name;
-console.log(cardData);
+  console.log(cardData);
 
   openModal(modalImage)
 }
@@ -162,7 +160,7 @@ modals.forEach((modal) => {
 
 })
 
-const profileFormValidator = new FormValidator(config, profileForm);
-const addFormValidator = new FormValidator(config, addForm);
+const profileFormValidator = new FormValidator(config, profileEditForm);
+const addFormValidator = new FormValidator(config, modalAddForm);
 profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
