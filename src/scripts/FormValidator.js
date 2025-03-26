@@ -1,6 +1,6 @@
 import {
     config
-} from '../utils/constants.js';
+} from '../../utils/constants.js';
 class FormValidator {
     constructor(config, form) {
         this._config = config;

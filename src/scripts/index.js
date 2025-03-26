@@ -1,8 +1,18 @@
-import FormValidator from "../components/FormValidator.js"
+import FormValidator from "./FormValidator.js"
 import {
   config
-} from "../utils/constants.js"
-import Card from "../components/Card.js"
+} from "../../utils/constants.js"
+import Card from "./Card.js"
+import '../pages/index.css'
+import PopupWithImage from '../scripts/PopupWithImage.js'
+import PopupWithForm from '../scripts/PopupWithForm.js';
+import UserInfo from "../scripts/UserInfo.js";
+
+const userInfo = new UserInfo({
+  nameSelector: ".profile__title",
+  jobSelector: ".profile__description"
+});
+
 
 const initialCards = [{
     name: "Yosemite Valley",
@@ -57,31 +67,29 @@ const modals = document.querySelectorAll(".modal");
 const cardSelector = '#card-template';
 
 
+const addPopup = new PopupWithForm(
+  '#modal__add',
+  () => {}
+);
 
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keyup", handleEsc)
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keyup", handleEsc)
-}
-
+addPopup.setEventListeners();
+const editPopup = new PopupWithForm(
+  '#profile-edit-modal',
+  () => {}
+);
+editPopup.setEventListeners();
 
 
 
 profileAddButton.addEventListener("click", () => {
-  openModal(modalAdd);
-  addFormValidator.toggleBtnState();
-
+  addPopup.open();
 });
 
 profileEditButton.addEventListener("click", () => {
   // set input values to text content
   profileEditInputTitle.value = profileTitle.textContent;
   profileEditInputDescription.value = profileDescription.textContent;
-  openModal(profileEditModal)
+  editPopup.open();
 });
 
 
@@ -92,7 +100,7 @@ profileEditForm.addEventListener("submit", (e) => {
   if (userTitle.trim() && userDescription.trim() !== "") {
     profileTitle.textContent = userTitle;
     profileDescription.textContent = userDescription;
-    closeModal(profileEditModal);
+    //closeModal(profileEditModal);
   }
 });
 
@@ -107,26 +115,11 @@ function renderCard(data) {
   cardListEl.prepend(cardElement);
 }
 
-function isEscEvent(evt) {
-  if (evt.key === "Escape") {
-    const activeModal = document.querySelector(".modal_opened")
-    closeModal(activeModal)
-  }
-}
-
-function handleEsc(e) {
-  e.preventDefault()
-  isEscEvent(e)
-}
 
 
-function openPictureModal(cardData) {
-  modalImagePopup.src = cardData.link;
-  modalImagePopup.alt = cardData.name;
-  modalImageDescription.textContent = cardData.name;
-  console.log(cardData);
 
-  openModal(modalImage)
+function openPictureModal(name, link) {
+  popupImage.open(name, link)
 }
 
 
@@ -139,9 +132,9 @@ function handleModalAddSubmit(evt) {
     name,
     link
   });
-  closeModal(modalAdd);
   evt.target.reset();
 };
+
 
 
 modalAddForm.addEventListener("submit", handleModalAddSubmit)
@@ -153,9 +146,7 @@ initialCards.forEach((cardData) => {
 
 modals.forEach((modal) => {
   modal.addEventListener("click", (e) => {
-    if (e.target === modal || e.target.classList.contains("modal__close")) {
-      closeModal(modal)
-    }
+    if (e.target === modal || e.target.classList.contains("modal__close")) {}
   })
 
 })
@@ -164,3 +155,7 @@ const profileFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, modalAddForm);
 profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
+
+
+const popupImage = new PopupWithImage('#image-modal');
+popupImage.setEventListeners();

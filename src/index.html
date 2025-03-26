@@ -5,17 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Around the U.S</title>
-  <link href="pages/index.css" rel="stylesheet" />
 </head>
 
 <body class="page">
   <div class="page__content">
     <header class="header page__section">
-      <img class="header__image" src="images/aroundtheworld.svg" alt="around-the-world-logo" />
+      <img class="header__image" src="<%=require('../src/images/aroundtheworld.svg')%>" alt="around-the-world-logo" />
+
     </header>
     <main class="content">
       <section class="profile page__section">
-        <img src="images/Avatar.png" alt="avatar-guy" class="profile__image" />
+        <img src="<%=require('../src/images/avatar.png')%>" alt="avatar-guy" class="profile__image" />
         <div class="profile__info">
           <h1 class="profile__title">Jacques Cousteau</h1>
           <button type="button" class="profile__edit-button"></button>
@@ -95,7 +95,6 @@
     </li>
   </template>
 
-  <script type="module" src="./pages/index.js" defer></script>
 </body>
 
 </html>

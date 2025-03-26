@@ -1,14 +1,14 @@
 class Card {
-    constructor(data, cardSelector, openPictureModal) {
+    constructor(data, cardSelector, handleCardImageClick) {
         this.name = data.name;
         this.link = data.link;
         this._cardSelector = cardSelector;
-        this._openPictureModal = openPictureModal;
+        this._handleCardImageClick = handleCardImageClick;
     }
 
     _setEventListener() {
         // Click event for opening the picture modal
-        this._element.querySelector(".card__image").addEventListener("click", () => this._openPictureModal(this));
+        this._element.querySelector(".card__image").addEventListener("click", () => this._handleCardImageClick(this.name, this.link));
 
         // Click event for removing the card
         this._element.querySelector(".card__trash-button").addEventListener("click", () => {
