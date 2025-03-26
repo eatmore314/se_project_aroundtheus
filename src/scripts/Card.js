@@ -7,15 +7,12 @@ class Card {
     }
 
     _setEventListener() {
-        // Click event for opening the picture modal
         this._element.querySelector(".card__image").addEventListener("click", () => this._handleCardImageClick(this.name, this.link));
 
-        // Click event for removing the card
         this._element.querySelector(".card__trash-button").addEventListener("click", () => {
             this._element.remove();
         });
 
-        // Click event for toggling the like button
         const likeButton = this._element.querySelector(".card__like-button");
         likeButton.addEventListener("click", () => {
             likeButton.classList.toggle("card__like-button-black");

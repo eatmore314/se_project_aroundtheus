@@ -1,6 +1,6 @@
 import {
     config
-} from '../../utils/constants.js';
+} from '../utils/constants.js';
 class FormValidator {
     constructor(config, form) {
         this._config = config;
@@ -14,7 +14,6 @@ class FormValidator {
     }
     toggleBtnState() {
 
-        //is this right? (this._hasInvalidInput(input))
         if (this._hasInvalidInput(this._allInputs)) {
             this._submitButton.classList.add(this._inactiveButtonClass);
             this._submitButton.disabled = true
@@ -24,15 +23,13 @@ class FormValidator {
         }
     }
 
-    //check this
     _hasInvalidInput(inputList) {
 
         return inputList.some(input => !input.validity.valid);
-        //if every item passes, it will return false
     }
 
 
-    //----------------------------------------
+   
     _showErrorMsg(input) {
 
         const errorMsg = this._form.querySelector(`#${input.id}-error`);
@@ -58,10 +55,8 @@ class FormValidator {
         }
 
     }
-    //----------------------------
 
     _setEventListeners() {
-        //Same as this: const inputSelector = obj.inputSelector;
         this._allInputs = [...this._form.querySelectorAll(this._inputSelector)];
         this._submitButton = this._form.querySelector(this._submitButtonSelector);
         this._allInputs.forEach((input) => {
@@ -73,7 +68,7 @@ class FormValidator {
     }
 
     enableValidation() {
-        this._form.addEventListener("submit", (e) => { //e.target = form (element event was fired o)
+        this._form.addEventListener("submit", (e) => { 
             e.preventDefault()
         })
         this._setEventListeners()
