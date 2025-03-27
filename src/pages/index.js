@@ -1,40 +1,15 @@
 import '../pages/index.css';
-import FormValidator from "../../components/FormValidator.js";
-import Section from "../../components/Section.js";
-import Card from "./Card.js";
-import PopupWithImage from "../scripts/PopupWithImage.js";
-import PopupWithForm from "../scripts/PopupWithForm.js";
-import UserInfo from "../../components/UserInfo.js";
+import FormValidator from "../components/scripts/FormValidator.js";
+import Section from "../components/scripts/Section.js";
 import {
-  config
-} from "../../utils/constants.js";
+  config,
+  initialCards
+} from "../utils/constants.js";
+import Card from "../components/scripts/Card.js";
+import PopupWithImage from "../components/scripts/PopupWithImage.js";
+import PopupWithForm from "../components/scripts/PopupWithForm.js";
+import UserInfo from "../components/scripts/UserInfo.js";
 
-
-const initialCards = [{
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg"
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg"
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg"
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg"
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg"
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg"
-  },
-];
 
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileAddButton = document.querySelector(".profile__add-button");
@@ -83,11 +58,12 @@ function openPictureModal(name, link) {
   popupImage.open(name, link);
 }
 
-const addCardPopup = new PopupWithForm('#modal__add', (formData) => {
+const addCardPopup = new PopupWithForm('#modal__add', (formData, form) => {
   renderCard({
     name: formData.title,
     link: formData.url
   });
+  form.reset()
 });
 addCardPopup.setEventListeners();
 

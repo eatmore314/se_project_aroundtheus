@@ -1,6 +1,6 @@
 import {
     config
-} from '../utils/constants.js';
+} from '../../utils/constants.js';
 class FormValidator {
     constructor(config, form) {
         this._config = config;
@@ -29,7 +29,7 @@ class FormValidator {
     }
 
 
-   
+
     _showErrorMsg(input) {
 
         const errorMsg = this._form.querySelector(`#${input.id}-error`);
@@ -68,7 +68,7 @@ class FormValidator {
     }
 
     enableValidation() {
-        this._form.addEventListener("submit", (e) => { 
+        this._form.addEventListener("submit", (e) => {
             e.preventDefault()
         })
         this._setEventListeners()
