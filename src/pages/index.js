@@ -1,14 +1,15 @@
 import '../pages/index.css';
-import FormValidator from "../components/scripts/FormValidator.js";
-import Section from "../components/scripts/Section.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
 import {
   config,
   initialCards
 } from "../utils/constants.js";
-import Card from "../components/scripts/Card.js";
-import PopupWithImage from "../components/scripts/PopupWithImage.js";
-import PopupWithForm from "../components/scripts/PopupWithForm.js";
-import UserInfo from "../components/scripts/UserInfo.js";
+import Card from "../components/Card.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
+import Api from "../utils/Api.js";
 
 
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -43,11 +44,13 @@ function renderCard(data) {
   cardSection.addItem(cardElement);
 }
 
-const cardSection = new Section({
-  items: initialCards,
-  renderer: renderCard
-}, '.cards__list');
-cardSection.renderItems();
+let cardSection;
+
+// const cardSection = new Section({
+//   items: initalCards,
+//   renderer: renderCard
+// }, '.cards__list');
+// cardSection.renderItems();
 
 
 
@@ -59,15 +62,20 @@ function openPictureModal(name, link) {
 }
 
 const addCardPopup = new PopupWithForm('#modal__add', (formData, form) => {
+  //fetch to add a card to the server
+  //if the fecth is successfule then add the card to the dom
+  
   renderCard({
     name: formData.title,
     link: formData.url
   });
+  api.addCard(data.name,data.link)
   form.reset()
 });
 addCardPopup.setEventListeners();
 
 const editPopup = new PopupWithForm('#profile-edit-modal', (formData) => {
+  //fetch to update the userinfo on the server
   userInfo.setUserInfo({
     name: formData.title,
     job: formData.description
@@ -95,3 +103,25 @@ profileEditButton.addEventListener("click", () => {
   profileEditInputDescription.value = user.job;
   editPopup.open();
 });
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "3718ae8e-d35b-4bf4-8217-cdb44d52e250",
+    "Content-Type": "application/json"
+  }
+});
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData,cards]) => {
+    cardSection = new Section({
+      items: cards,
+      renderer: renderCard
+    }, '.cards__list');
+    
+    userInfo.setUserInfo(userData);      // your function to show name, about, avatar
+    cardSection.renderItems();       // your function to create card elements
+  })
+  .catch(err => console.error(err));
+
+  
