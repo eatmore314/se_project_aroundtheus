@@ -28,6 +28,10 @@
     _checkResponse(res) {
       return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
     }
+
+    getAppInfo(){
+      return Promise.all([this.getInitialCards(), this.getUserInfo()])
+    }
   
     getUserInfo() {
       return fetch(`${this._baseUrl}/users/me`, {
@@ -78,11 +82,11 @@
       }).then(this._checkResponse);
     }
   
-    updateAvatar(link) {
+    updateAvatar({avatar}) {
       return fetch(`${this._baseUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: this._headers,
-        body: JSON.stringify({ avatar: link })
+        body: JSON.stringify({ avatar })
       }).then(this._checkResponse);
     }
   }
