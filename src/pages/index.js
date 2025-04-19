@@ -13,19 +13,14 @@ const profileEditButton = document.querySelector(".profile__edit-button");
 const profileAddButton = document.querySelector(".profile__add-button");
 const profileAvatarButton = document.getElementById("avatar_edit_button");
 
-const profileEditInputTitle = document.getElementById(
-  "modal__input_edit_title"
-);
-const profileEditInputDescription = document.getElementById(
-  "modal__input_edit_description"
-);
+const profileEditInputTitle = document.getElementById("modal__input_edit_title");
+const profileEditInputDescription = document.getElementById("modal__input_edit_description");
 
-const profileEditForm = document.querySelector(
-  "#profile-edit-modal .modal__form"
-);
+const profileEditForm = document.querySelector("#profile-edit-modal .modal__form");
 const modalAddForm = document.getElementById("modal__form_add");
 const modalAddTitleInput = document.getElementById("modal__input_add_title");
 const modalAddUrlInput = document.getElementById("modal__input_add_url");
+const modalAvatar = document.getElementById("modal__avatar")
 
 const cardSelector = "#card-template";
 const modals = document.querySelectorAll(".modal");
@@ -48,18 +43,20 @@ function createCard(data) {
 }
 
 function handleCardLikeButtonClick(card) {
-  // if the card is no liked, we like the card on the server, then we like the card visually (on the dom)
-  //otherwise we unlike the card on the server, and then unlike it visually on the dom
   if (card.isLiked) {
-    api.unlikeCard(card.id).then(() => {
-      card.unlikeCardOnDom();
-      card.isLiked = !card.isLiked;
-    });
+    api.unlikeCard(card.id)
+      .then(() => {
+        card.unlikeCardOnDom();
+        card.isLiked = !card.isLiked;
+      })
+      .catch((err) => console.error("Error unliking card:", err));
   } else {
-    api.likeCard(card.id).then(() => {
-      card.likeCardOnDom();
-      card.isLiked = !card.isLiked;
-    });
+    api.likeCard(card.id)
+      .then(() => {
+        card.likeCardOnDom();
+        card.isLiked = !card.isLiked;
+      })
+      .catch((err) => console.error("Error liking card:", err));
   }
 }
 
@@ -67,13 +64,14 @@ let selectedCard;
 
 const newDelete = new PopupWithForm("#delete-modal", () => {
   api.deleteCard(selectedCard.id)
-  .then(res => {
-    selectedCard.remove();
-  })
+    .then(res => {
+      selectedCard.remove();
+      newDelete.close();
+    })
+    .catch((err) => console.error("Error deleting card:", err));
 });
 newDelete.setEventListeners();
 
-//runs when clicking a card's delete button
 function handleDeleteClick(card) {
   selectedCard = card;
   newDelete.open();
@@ -86,12 +84,6 @@ function renderCard(data) {
 
 let cardSection;
 
-// const cardSection = new Section({
-//   items: initalCards,
-//   renderer: renderCard
-// }, '.cards__list');
-// cardSection.renderItems();
-
 const popupImage = new PopupWithImage("#image-modal");
 popupImage.setEventListeners();
 
@@ -100,16 +92,13 @@ function openPictureModal(name, link) {
 }
 
 const addCardPopup = new PopupWithForm("#modal__add", (formData) => {
-  //fetch to add a card to the server
-  //if the fecth is successfule then add the card to the dom
-
   const cardData = {
     name: formData.title,
     link: formData.url,
   };
 
-  api
-    .addCard(cardData.name, cardData.link)
+  addCardPopup.updateSubmit(true);
+  api.addCard(cardData.name, cardData.link)
     .then((newCardData) => {
       renderCard(newCardData);
       modalAddForm.reset();
@@ -117,29 +106,37 @@ const addCardPopup = new PopupWithForm("#modal__add", (formData) => {
     })
     .catch((err) => {
       console.error("Error adding new Card", err);
+    })
+    .finally(() => {
+      addCardPopup.updateSubmit(false);
     });
 });
 
 addCardPopup.setEventListeners();
 
 const editPopup = new PopupWithForm("#profile-edit-modal", (formData) => {
-  //fetch to update the userinfo on the server
-  api
-    .updateProfile(formData.title, formData.description)
+  editPopup.updateSubmit(true);
+  api.updateProfile(formData.title, formData.description)
     .then(({ about, name }) => {
       userInfo.setUserInfo({
         name,
         job: about,
-      }); //catch block
-    });
+      });
+      editPopup.close();
+    })
+    .catch((err) => console.error("Error updating profile:", err))
+    .finally(() => editPopup.updateSubmit(false));
 });
 
 const avatarPopup = new PopupWithForm("#avatar-edit-modal", (avatarObj) => {
-  api.updateAvatar(avatarObj).then(({ avatar }) => {
-    userInfo.setUserInfo({
-      avatar,
-    }); //catch block
-  });
+  avatarPopup.updateSubmit(true);
+  api.updateAvatar(avatarObj)
+    .then(({ avatar }) => {
+      userInfo.setUserInfo({ avatar });
+      avatarPopup.close();
+    })
+    .catch((err) => console.error("Error updating avatar:", err))
+    .finally(() => avatarPopup.updateSubmit(false));
 });
 
 profileAvatarButton.addEventListener("click", () => {
@@ -151,6 +148,8 @@ editPopup.setEventListeners();
 
 const profileFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, modalAddForm);
+const avatarValidator = new FormValidator(config,  modalAvatar);
+avatarValidator.enableValidation();
 profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
@@ -189,9 +188,8 @@ api
       name: userData.name,
       job: userData.about,
       avatar: userData.avatar,
-    }); // your function to show name, about, avatar
-    cardSection.renderItems(); // your function to create card elements
+    });
+    cardSection.renderItems();
   })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error("Error loading initial data:", err));
 
-// {name: "placeholder name", job: "placeholder description", avatar: "htp://sldjslkfd"}
